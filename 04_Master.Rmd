@@ -9,10 +9,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### 1. Source functions, get data and plot
 
-First we'll _source()_ (i.e. "run all code in") the scripts with the functions we made. Then we'll set the URL, read in the data with _download.NDVI()_, and plot it with _plot.NDVI()_.
+First we'll *source()* (i.e. "run all code in") the scripts with the functions we made. Then we'll set the URL, read in the data with *download.NDVI()*, and plot it with *plot.NDVI()*.
 
 ```{r}
-## Load required functions by running source() on the individual function files
+# Load required functions by running source() on the individual function files
 if(file.exists("01_download.NDVI.R")) source("01_download.NDVI.R")
 if(file.exists("02_plot.NDVI.R"))     source("02_plot.NDVI.R")
 if(file.exists("03_negexp.R"))        source("03_negexp.R")
@@ -32,7 +32,7 @@ plot.NDVI(dat)
 
 Q1: This plot suggests that Fynbos greenness (NDVI) as observed from satellite saturates with time since fire. Why do you think it saturates rather than increasing linearly with time?
 
->*Answer 1:*
+> *Answer 1:*
 
 <br>
 
@@ -87,7 +87,6 @@ plot.NDVI(dat = dat, fit = fit_negexpS)
 
 ```
 
-
 ```{r}
 # print model summary
 summary(fit_negexpS)
@@ -99,15 +98,15 @@ Lots more parameters...
 
 Q2: How do the estimates for the common parameters compare?
 
->*Answer 2:*
+> *Answer 2:*
 
 <br>
 
 ### 3. Compare NLS models using ANOVA
 
-Modelers often want to know which of a set of models are better. One way to do this when comparing nested* models using least squares is using analysis of variance (ANOVA). In this case the `anova()` function will take the model objects as arguments, and return an ANOVA testing whether the full model results in a significant reduction in the residual sum of squares (and thus is better at capturing the data), returning an F-statistic, Degrees of Freedom (the difference in the number of parameters between the models) and p-value.
+Modelers often want to know which of a set of models are better. One way to do this when comparing nested\* models using least squares is using analysis of variance (ANOVA). In this case the `anova()` function will take the model objects as arguments, and return an ANOVA testing whether the full model results in a significant reduction in the residual sum of squares (and thus is better at capturing the data), returning an F-statistic, Degrees of Freedom (the difference in the number of parameters between the models) and p-value.
 
-*i.e. one model is a subset of the other, as in our case
+\*i.e. one model is a subset of the other, as in our case
 
 ```{r}
 anova(fit_negexp, fit_negexpS)
@@ -117,11 +116,11 @@ anova(fit_negexp, fit_negexpS)
 
 Q3: Which model is better?
 
->*Answer 3:*
+> *Answer 3:*
 
 Q4: How many degrees of freedom are there in this ANOVA and why (i.e. what are they)?
 
->*Answer 4:*
+> *Answer 4:*
 
 <br>
 
@@ -144,7 +143,6 @@ plot.NDVI(dat)
 lines(dat$age, pred.negexp(fit_negexpMLE$par,dat$age), col = 'skyblue', lwd = 3)
 
 ```
-
 
 ```{r}
 fit_negexpMLE
@@ -179,7 +177,7 @@ fit_negexpMLES
 
 Note that we can't compare our MLE models using ANOVA because our custom functions do not return full model fits like the `nls()` function - only the parameter estimates, negative log-likelihoods and a few other diagnostics.
 
-Another way to compare models (and probably the most common) is using the Akaike information criterion (AIC), which is an estimator of prediction error (i.e. relative quality) of statistical models for a given set of data. 
+Another way to compare models (and probably the most common) is using the Akaike information criterion (AIC), which is an estimator of prediction error (i.e. relative quality) of statistical models for a given set of data.
 
 The formula for the Akaike information criterion is:
 
@@ -187,8 +185,8 @@ $AIC = 2K -2(ln(L))$
 
 Where:
 
-- $k$ = the number of estimated parameters in the model
-- $L$ = maximum value of the likelihood function for the model
+-   $k$ = the number of estimated parameters in the model
+-   $L$ = maximum value of the likelihood function for the model
 
 Since we have our negative log likelihoods (i.e. $-ln(L)$ in the formula above), we can calculate the AICs and compare them.
 
@@ -214,11 +212,11 @@ AIC_simple - AIC_full
 
 Q5: Is there a preferred model and if so, which one?
 
->*Answer 5:*
+> *Answer 5:*
 
 <br>
 
-The nice thing about AIC is that the models you compare do not have to be nested like they do for ANOVA, as long as the data are the same. There are a few other constraints however... 
+The nice thing about AIC is that the models you compare do not have to be nested like they do for ANOVA, as long as the data are the same. There are a few other constraints however...
 
 Here are the AIC scores for our pair of NLS models:
 
@@ -232,6 +230,6 @@ You'll notice that these are completely different to the AICs for the MLE models
 
 Q6: Why is it not okay to compare the AIC of these NLS models with the AIC of the MLE models? Hint: type `?AIC` into the R console and do some reading.
 
->*Answer 6:*
+> *Answer 6:*
 
 <br>
