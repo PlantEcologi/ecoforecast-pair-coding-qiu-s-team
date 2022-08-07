@@ -392,7 +392,20 @@ plot.NDVI(dat)</code></pre>
 satellite saturates with time since fire. Why do you think it saturates
 rather than increasing linearly with time?</p>
 <blockquote>
-<p><em>Answer 1:</em></p>
+<p><em>Answer 1: Although fynbos greenery increases over time linearly,
+NDVI is measured using satellite data. This means that is will capture
+the extent of greenery over an area but no the underlying density of
+greenery. Once an area is covered with enough vegetation, more
+vegetation grown in underlying layers that increases the density of the
+canopy will not be reflected in the NDVI data. This is seen by the
+logarithmic trend of the graph. Another factor that could play a role is
+the exponential increase in plant growth after a fire. Fires return
+nutrients to the soil, allowing fynbos to grow rapidly since fynbos is a
+nutrient-limited family. After a while, the nutrients in the soil have
+been absorbed by the plants and there is no longer enough to allow for
+the same growth rate as before. This means the growth rate will slow,
+which slows the rate at which greenery occurs, therefore lowering the
+gradient of the NDVI curve, producing this logistic trendline.</em></p>
 </blockquote>
 <p><br></p>
 </div>
@@ -473,7 +486,23 @@ summary(fit_negexpS)</code></pre>
 <p>Lots more parameters…</p>
 <p>Q2: How do the estimates for the common parameters compare?</p>
 <blockquote>
-<p><em>Answer 2:</em></p>
+<p><em>Alpha: The estimate of α of the full model is 0.2075 which is
+less than the simple model estimate, 0,2511. This indicates that the
+full model assumes the initial NDVI is lower compared to the simple
+model as α is the NDVI at time 0. The simple models’ α value is given
+by<br />
+Gamma:The estimate γ of the full model is 0.3647 which is higher than
+the simple model with 0,3237. This means the full model predicts a
+higher maximum average increase in NDVI. Since both the simple and full
+model must take into account high NDVI readings in the later years, the
+lower α value in the full model causes its’ γ value to be higher to
+reach the same NDVI values within the same time interval as the simple
+model. LAmbda: λ is the rate of increase in NDVI. The simple model has a
+higher λ value of 1.17687 compared to the full model. The full model has
+a lower rate of increase at 0.9892 since it takes into account
+decreasing NDVI due to periodic seasonality. The simple model does not
+account for seasonality, therefore it is not influenced by the
+decreasing NDVI in winter and has a higher λ value.</em></p>
 </blockquote>
 <p><br></p>
 </div>
@@ -502,12 +531,21 @@ p-value.</p>
 <p><br></p>
 <p>Q3: Which model is better?</p>
 <blockquote>
-<p><em>Answer 3:</em></p>
+<p><em>The large F value indicates there is a significant difference
+beween the two models. The low p-value of 4.12X10^14 indicates that
+there are multiple significant differences between the models. The full
+model has a residual sum of squares of 0.4528 which is lower than the
+simple models residual. This means that the Full model is comparatively
+better at predicting the data. This, coupled with the signficance of the
+p-value, indicates that the full model is significantly better at
+predicting the NDVI data compared to the Simple model. </em></p>
 </blockquote>
 <p>Q4: How many degrees of freedom are there in this ANOVA and why
 (i.e. what are they)?</p>
 <blockquote>
-<p><em>Answer 4:</em></p>
+<p><em>There are two degrees of freedom, A whcih is the amplitude of the
+sine term, and ϕ which adjusts the timing of the sine term to account
+for the month the fire occurred.</em></p>
 </blockquote>
 <p><br></p>
 </div>
@@ -618,7 +656,8 @@ significantly different at an <span class="math inline">\(\alpha\)</span> of <sp
 <p><br></p>
 <p>Q5: Is there a preferred model and if so, which one?</p>
 <blockquote>
-<p><em>Answer 5:</em></p>
+<p><em>We prefer the Full model since it has a lower Akaike’s
+information criterion. </em></p>
 </blockquote>
 <p><br></p>
 <p>The nice thing about AIC is that the models you compare do not have
@@ -636,7 +675,11 @@ MLE models…</p>
 the AIC of the MLE models? Hint: type <code>?AIC</code> into the R
 console and do some reading.</p>
 <blockquote>
-<p><em>Answer 6:</em></p>
+<p><em>Akaike’s information criterion is computed using Maximum
+likelihood estimation (MLE). Since the Nonlinear Least Squares method
+fails to maximise likelihoods, the AIC values, although can be computed,
+should not be compared since the assumptions of the formula will be
+false. </em></p>
 </blockquote>
 <p><br></p>
 </div>
